@@ -17,6 +17,7 @@ shinyUI(pageWithSidebar(
         ),
                 
         mainPanel(
-                plotOutput("ioPlot")
+                plotOutput("ioPlot"),
+                textOutput("docs")
         )
 ))
