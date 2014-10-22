@@ -5,7 +5,7 @@ library(datasets)
 airData <- airquality
 
 #make list of columns for dropdowns
-columns <- list("O Zone" = "Ozone", "Solar Radiation" = "Solar.R", "Wind" = "Wind", "Temperature" = "Temp")
+columns <- list("Ozone" = "Ozone", "Solar Radiation" = "Solar.R", "Wind" = "Wind", "Temperature" = "Temp")
 
 # Define server logic
 shinyServer(function(input, output, session) {

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Air Quality Relationships &amp; Predictions Application</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Air Quality Relationships &amp; Predictions Application">
+  <meta name="author" content="James Brink">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Air Quality Relationships &amp; Predictions Application</h1>
+    <h2>Plotting Relationships &amp; Making Predictions</h2>
+    <p>James Brink<br/>Coursera Data Science Specialization</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>What is this application?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>This application uses the airquality dataset from the R datasets package and allows the user to do two things:</p>
+
+<ol>
+<li>Plot relationships between the different variables measured in the dataset.</li>
+<li>Make predictions for any single variable given a value for any other single variable using linear regression.</li>
+</ol>
+
+<pre><code class="r">library(datasets)
+head(airquality)
+</code></pre>
+
+<pre><code>##   Ozone Solar.R Wind Temp Month Day
+## 1    41     190  7.4   67     5   1
+## 2    36     118  8.0   72     5   2
+## 3    12     149 12.6   74     5   3
+## 4    18     313 11.5   62     5   4
+## 5    NA      NA 14.3   56     5   5
+## 6    28      NA 14.9   66     5   6
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>First Feature: Plotting Relationships</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The application allows the user to select one of the four measured variables and then plot it against any of the three remaining variables.  A linear model then automatically fits a regression line for the selected relationship.  This example shows Solar Radiation plotted against Ozone.</p>
+
+<pre><code class="r">fit &lt;- lm(Ozone~Solar.R, data=airquality)
+plot(Ozone~Solar.R, data = airquality, xlab=&quot;Solar Radiation&quot;, ylab=&quot;Ozone&quot;)
+abline(fit, col=&quot;red&quot;)
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-2.png" alt="plot of chunk unnamed-chunk-2"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Second Feature: Making Predictions</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>After a user has selected the two variables they would like to compare (the predictor and the outcome), they can user the slider to find the predicted outcome based on a given predictor value.  The slider calculates a prediction based on the coefficients obtained for the linear model that is fitted to the plot.</p>
+
+<pre><code class="r">sliderInput &lt;- 150
+fit &lt;- lm(Ozone~Solar.R, data=airquality)
+slp &lt;- fit$coeff[2]
+yint &lt;- fit$coeff[1]
+prediction &lt;- round(yint + slp * sliderInput,2)
+prediction
+</code></pre>
+
+<pre><code>## (Intercept) 
+##       37.67
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Why Should We Build and Use This Product?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>This product can be very useful for performing exploratory data analysis, especially for those individuals that are less familiar with R.  Even for those that are serious programmers this provides a way to analyze the relationships between the variables in this dataset very quickly without writing a single line of code!</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='What is this application?'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='First Feature: Plotting Relationships'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Second Feature: Making Predictions'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Why Should We Build and Use This Product?'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
