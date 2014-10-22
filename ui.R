@@ -7,7 +7,7 @@ shinyUI(pageWithSidebar(
         headerPanel("Air Quality Relationships & Predictions"),
         
         sidebarPanel(
-                selectInput("outcome", "Outcome:", list("O Zone" = "Ozone", 
+                selectInput("outcome", "Outcome:", list("Ozone" = "Ozone", 
                                                         "Solar Radiation" = "Solar.R",
                                                         "Wind" = "Wind",
                                                         "Temperature" = "Temp")),
