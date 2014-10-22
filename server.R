@@ -18,16 +18,33 @@ shinyServer(function(input, output, session) {
         
         #setup the slider for the current selections, default to mean, set max and min to the observed max and min
         output$slider = renderUI({
-                slLabel = paste("Adjust to predict ", names(columns[grep(input$outcome,columns)]), "using this value for ", names(columns[grep(input$predict,columns)]), ":")
-                slVal = round(mean(airData[,input$predict], na.rm=TRUE),0)
-                slMin = round(min(airData[,input$predict], na.rm=TRUE),0)
-                slMax = round(max(airData[,input$predict], na.rm=TRUE),0)
+                #set default for input$predict for initial load
+                if (is.null(input$predict)){
+                        ipd <- "Solar.R"
+                }
+                else
+                {
+                        ipd <- input$predict     
+                }
+                
+                slLabel = paste("Adjust to predict ", names(columns[grep(input$outcome,columns)]), "using this value for ", names(columns[grep(ipd,columns)]), ":")
+                slVal = round(mean(airData[,ipd], na.rm=TRUE),0)
+                slMin = round(min(airData[,ipd], na.rm=TRUE),0)
+                slMax = round(max(airData[,ipd], na.rm=TRUE),0)
                 sliderInput('slide', slLabel, value = slVal, min = slMin, max = slMax, step=1,)
         })
         
         #create formula for plot
         formulaText <- reactive({
-                paste(input$outcome, " ~ ", input$predict)
+                #set default for input$predict for initial load
+                if (is.null(input$predict)){
+                        ipd <- "Solar.R"
+                }
+                else
+                {
+                        ipd <- input$predict     
+                }
+                paste(input$outcome, " ~ ", ipd)
         })
         
         #create text for prediction
@@ -41,11 +58,20 @@ shinyServer(function(input, output, session) {
         
         #create plot and fitted line
         output$ioPlot <- renderPlot({
+                #set default for input$predict for initial load
+                if (is.null(input$predict)){
+                        ipd <- "Solar.R"
+                }
+                else
+                {
+                        ipd <- input$predict     
+                }
+                
                 fit <- lm(as.formula(formulaText()), data=airData)
                 plot(as.formula(formulaText()), 
-                        data = airData, xlab=names(columns[grep(input$predict,columns)]), ylab=names(columns[grep(input$outcome,columns)]))
+                        data = airData, xlab=names(columns[grep(ipd,columns)]), ylab=names(columns[grep(input$outcome,columns)]))
                 abline(fit, col="red")
-                title(main= paste(names(columns[grep(input$outcome,columns)]), " vs. ", names(columns[grep(input$predict,columns)])))
+                title(main= paste(names(columns[grep(input$outcome,columns)]), " vs. ", names(columns[grep(ipd,columns)])))
         })
         
         #create documentation
